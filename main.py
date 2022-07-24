@@ -73,9 +73,7 @@ for key in mydict:
         xEx, yEx = polAn(x, y, key)
         mydict[key] = [xEx, yEx]
 
-#print(mydict)
-
-fieldnames = ['PNR', 'X', 'Y']
+fieldnames = ['PNR', 'Code', 'X', 'Y']
 with open('Wurf-mm_exzentrum.pkt', 'w', newline='') as f:
     writer = csv.writer(f, delimiter='\t')
     for key in mydict:
