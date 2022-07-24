@@ -32,12 +32,12 @@ def polAn(xS, yS, k):
     print('xA ' + str(xA))
     print('yA ' + str(yA))
     sN = 0.025
-    tSA = math.atan((yA-yS)/(xA-xS))
+    tSA = math.atan2((yA - yS), (xA - xS))
     print('tSA ' + str(tSA))
     if RI_betaN == 1:
-        betaN = math.radians(90)
-    else:
         betaN = math.radians(270)
+    else:
+        betaN = math.radians(90)
     print('RI_betaN ' + str(RI_betaN))
     print('betaN ' + str(betaN*180/math.pi))
     tSN = tSA + betaN
