@@ -59,14 +59,7 @@ with open('Wurf-mm_delim-tab.pkt', newline='') as csvfile:
 print(mydict['1.2.0065'])
 
 for key in mydict:
-    if key[2] == '2':
-        x, y = mydict[key]
-        x = float(x)
-        y = float(y)
-        xEx, yEx = polAn(x, y, key)
-        mydict[key] = [xEx, yEx]
-
-    if key[2] == '3':
+    if key[2] == '2' or key[2] == '3':
         x, y = mydict[key]
         x = float(x)
         y = float(y)
