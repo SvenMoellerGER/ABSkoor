@@ -8,10 +8,6 @@ bogenlaenge_weitenlinie = 2.0
 
 def polAn(xS, yS, k):
     global yA, xA, RI_betaN
-    print('\n')
-    print('KEY ' + str(k))
-    print('xS ' + str(xS))
-    print('yS ' + str(yS))
     k = k[0:3]
     if k == '1.2':
         xA, yA = koordinaten_import['1.1.0005']
@@ -33,24 +29,16 @@ def polAn(xS, yS, k):
         RI_betaN = 1
 
     xA, yA = float(xA), float(yA)
-    print('xA ' + str(xA))
-    print('yA ' + str(yA))
     tSA = math.atan2((yA - yS), (xA - xS))
-    print('tSA ' + str(tSA))
     if RI_betaN == 1:
         betaN = math.radians(270)
     else:
         betaN = math.radians(90)
-    print('RI_betaN ' + str(RI_betaN))
-    print('betaN ' + str(betaN*180/math.pi))
     tSN = tSA + betaN
-    print('tSN ' + str(tSN))
     yN = yS + sN * math.sin(tSN)
     xN = xS + sN * math.cos(tSN)
 
     xN, yN = round(xN, 3), round(yN, 3)
-    print('yN ' + str(yN))
-    print('xN ' + str(xN))
 
     return xN, yN
 
@@ -98,7 +86,6 @@ def weitenlinie(d, w):
     for m in range(2 * anzahlPunktHalbeBogenlaenge + 1):
         betaN = nr * gamma
         tSN = tSA + betaN
-        print('tSN ' + str(tSN))
         yN = yS + sN * math.sin(tSN)
         xN = xS + sN * math.cos(tSN)
 
@@ -108,9 +95,14 @@ def weitenlinie(d, w):
 
         if lfdnr < 10:
             string_lfdnr = '0' + str(lfdnr)
-        string_pnr = str(d) + '.4.' + str(weite*100) + string_lfdnr
+        else:
+            string_lfdnr = str(lfdnr)
+
+        string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr
         # 1.4.755001
         koordinaten_export[string_pnr] = xN, yN
+        print(string_pnr)
+        print('')
 
         nr += 1
         lfdnr += 1
@@ -134,26 +126,30 @@ for key in koordinaten_import:      # Berechnung des exzentrischen Punktes
 
 i, j = 0, 0
 while i == 0:
-    disziplin = input('Disziplin wählen: (1) Speer  (2) Diskus  (3) Hammer  (4) Kugel')
+    disziplin = int(input('Disziplin wählen: (1) Speer  (2) Diskus  (3) Hammer  (4) Kugel  (5) BEENDEN'))
     if disziplin == 1 or disziplin == 2 or disziplin == 3 or disziplin == 4:
         while j == 0:
-            weite = input('Weitenlinie eingeben: ')
-            if isinstance(weite, float):
-                weitenlinie(disziplin, weite)
+            weite = float(input('Weitenlinie eingeben: '))
+            if weite == 0:
                 j = 1
             else:
-                print('Float eingeben!')
+                if isinstance(weite, float):
+                    weitenlinie(disziplin, weite)
+                else:
+                    print('Float eingeben!')
         beenden = input('Berechnung Weitenlinien beenden? (1) Nein  (2) Ja')
         if beenden == 2:
-            i = 1
+            j = 1
+    elif disziplin == 5:
+        i = 1
     else:
         print('Int eingeben!')
 
 fieldnames = ['PNR', 'Code', 'X', 'Y']
 with open('Wurf-mm_exzentrum.pkt', 'w', newline='') as f:
     writer = csv.writer(f, delimiter='\t')
-    for key in koordinaten_import:
-        a, b = koordinaten_import[key]
+    for key in koordinaten_export:
+        a, b = koordinaten_export[key]
         a, b = float(a), float(b)
         obj = [key, '1000', a, b]
         writer.writerow(obj)
