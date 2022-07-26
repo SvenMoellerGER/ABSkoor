@@ -3,7 +3,6 @@ import math
 
 rho = 180/math.pi
 offset = 0.025
-bogenlaenge_weitenlinie = 2.0
 
 
 def polAn(xS, yS, k):
@@ -45,6 +44,8 @@ def polAn(xS, yS, k):
 
 def weitenlinie(d, w):
     global string_lfdnr
+    bogenlaenge_weitenlinie = 2.0
+
     if d == 1:      # Speer
         alpha = 28.96
         r = 8.0
@@ -60,18 +61,20 @@ def weitenlinie(d, w):
             xS, yS = float(xS), float(yS)
             xA, yA = koordinaten_import['2.1.0002']
             xA, yA = float(xA), float(yA)
-        elif d == 3:
+        elif d == 3:    # Hammer
             r = 0.5 * 2.135
             xS, yS = koordinaten_import['2.1.0001']
             xS, yS = float(xS), float(yS)
             xA, yA = koordinaten_import['2.1.0002']
             xA, yA = float(xA), float(yA)
-        else:       # Hammer, Kugel
+        else:       # Kugel
             r = 0.5 * 2.135
             xS, yS = koordinaten_import['4.1.0001']
             xS, yS = float(xS), float(yS)
             xA, yA = koordinaten_import['4.1.0006']
             xA, yA = float(xA), float(yA)
+            bogenlaenge_weitenlinie = 1.0
+
     halbeBogenlaenge = 0.5 * ((alpha * (w + r))/rho)
     anzahlPunktHalbeBogenlaenge = math.floor(halbeBogenlaenge / bogenlaenge_weitenlinie)
     gamma = bogenlaenge_weitenlinie / (w + r)
