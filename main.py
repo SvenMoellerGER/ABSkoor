@@ -133,14 +133,15 @@ while i == 0:
 
     if disziplin == 1 or disziplin == 2 or disziplin == 3 or disziplin == 4:
         while j == 0:
-            weite = float(input(f'Weitenlinie für {string_disziplin} eingeben (0 für Beenden): '))
-            if weite == 0:
-                j = 1
-            else:
-                if isinstance(weite, float):
-                    weitenlinie(disziplin, weite)
+            weite = input(f'Weitenlinie für {string_disziplin} eingeben (0 für Beenden): ')
+            try:
+                weite = float(weite)
+                if weite == 0:
+                    j = 1
                 else:
-                    print('Float eingeben!')
+                    weitenlinie(disziplin, weite)
+            except ValueError:
+                print('Float eingeben!')
         # beenden = input('Berechnung Weitenlinien beenden? (1) Nein  (2) Ja')
         # if beenden == 2:
         #     j = 1
