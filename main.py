@@ -117,12 +117,23 @@ for key in koordinaten_import:      # Berechnung des exzentrischen Punktes
         xEx, yEx = polAn(x, y, key)
         koordinaten_import[key] = [xEx, yEx]
 
-i, j = 0, 0
+i = 0
 while i == 0:
+    j = 0
     disziplin = int(input('Disziplin wählen: (1) Speer  (2) Diskus  (3) Hammer  (4) Kugel  (5) BEENDEN'))
+
+    if disziplin == 1:
+        string_disziplin = 'Speer'
+    elif disziplin == 2:
+        string_disziplin = 'Diskus'
+    elif disziplin == 3:
+        string_disziplin = 'Hammer'
+    else:
+        string_disziplin = 'Kugel'
+
     if disziplin == 1 or disziplin == 2 or disziplin == 3 or disziplin == 4:
         while j == 0:
-            weite = float(input('Weitenlinie eingeben: '))
+            weite = float(input(f'Weitenlinie für {string_disziplin} eingeben (0 für Beenden): '))
             if weite == 0:
                 j = 1
             else:
@@ -130,9 +141,9 @@ while i == 0:
                     weitenlinie(disziplin, weite)
                 else:
                     print('Float eingeben!')
-        beenden = input('Berechnung Weitenlinien beenden? (1) Nein  (2) Ja')
-        if beenden == 2:
-            j = 1
+        # beenden = input('Berechnung Weitenlinien beenden? (1) Nein  (2) Ja')
+        # if beenden == 2:
+        #     j = 1
     elif disziplin == 5:
         i = 1
     else:
