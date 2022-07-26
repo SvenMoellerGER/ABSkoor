@@ -115,7 +115,7 @@ for key in koordinaten_import:      # Berechnung des exzentrischen Punktes
         x = float(x)
         y = float(y)
         xEx, yEx = polAn(x, y, key)
-        koordinaten_import[key] = [xEx, yEx]
+        koordinaten_export[key] = [xEx, yEx]
 
 i = 0
 while i == 0:
