@@ -109,9 +109,9 @@ with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
 
 koordinaten_export = koordinaten_import
 
-for key in koordinaten_import:      # Berechnung des exzentrischen Punktes
+for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
     if key[2] == '2' or key[2] == '3':
-        x, y = koordinaten_import[key]
+        x, y = koordinaten_export[key]
         x = float(x)
         y = float(y)
         xEx, yEx = polAn(x, y, key)
