@@ -83,8 +83,8 @@ def weitenlinie(d, w):
     for m in range(2 * anzahlPunktHalbeBogenlaenge + 1):
         betaN = nr * gamma
         tSN = tSA + betaN
-        yN = yS + (w + r) * math.sin(tSN)
-        xN = xS + (w + r) * math.cos(tSN)
+        yN = yS + (w + r + offset) * math.sin(tSN)
+        xN = xS + (w + r + offset) * math.cos(tSN)
 
         xN, yN = round(xN, 3), round(yN, 3)
 
@@ -99,8 +99,6 @@ def weitenlinie(d, w):
 
         nr += 1
         lfdnr += 1
-
-        # TODO Punktcodes erweitern auf cm-Genauigkeit
 
 
 with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
