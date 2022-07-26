@@ -2,7 +2,7 @@ import csv
 import math
 
 rho = 180/math.pi
-sN = 0.025
+offset = 0.025
 bogenlaenge_weitenlinie = 2.0
 
 
@@ -35,8 +35,8 @@ def polAn(xS, yS, k):
     else:
         betaN = math.radians(90)
     tSN = tSA + betaN
-    yN = yS + sN * math.sin(tSN)
-    xN = xS + sN * math.cos(tSN)
+    yN = yS + offset * math.sin(tSN)
+    xN = xS + offset * math.cos(tSN)
 
     xN, yN = round(xN, 3), round(yN, 3)
 
@@ -73,25 +73,20 @@ def weitenlinie(d, w):
             xA, yA = koordinaten_import['4.1.0006']
             xA, yA = float(xA), float(yA)
     halbeBogenlaenge = 0.5 * ((alpha * (w + r))/rho)
-    print('halbeBogenlaenge ' + str(halbeBogenlaenge))
     anzahlPunktHalbeBogenlaenge = math.floor(halbeBogenlaenge / bogenlaenge_weitenlinie)
-    print('anzahlPunktHalbeBogenlaenge ' + str(anzahlPunktHalbeBogenlaenge))
-    gamma = (bogenlaenge_weitenlinie * rho) / (w + r)
-    print('gamma ' + str(gamma))
+    gamma = bogenlaenge_weitenlinie / (w + r)
 
     tSA = math.atan2((yA - yS), (xA - xS))
 
     nr = -1 * anzahlPunktHalbeBogenlaenge
-    lfdnr = 10
+    lfdnr = 1
     for m in range(2 * anzahlPunktHalbeBogenlaenge + 1):
         betaN = nr * gamma
         tSN = tSA + betaN
-        yN = yS + sN * math.sin(tSN)
-        xN = xS + sN * math.cos(tSN)
+        yN = yS + (w + r) * math.sin(tSN)
+        xN = xS + (w + r) * math.cos(tSN)
 
         xN, yN = round(xN, 3), round(yN, 3)
-        print('yN ' + str(yN))
-        print('xN ' + str(xN))
 
         if lfdnr < 10:
             string_lfdnr = '0' + str(lfdnr)
@@ -101,8 +96,6 @@ def weitenlinie(d, w):
         string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr
         # 1.4.755001
         koordinaten_export[string_pnr] = xN, yN
-        print(string_pnr)
-        print('')
 
         nr += 1
         lfdnr += 1
