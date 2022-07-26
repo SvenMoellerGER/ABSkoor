@@ -44,7 +44,7 @@ def polAn(xS, yS, k):
 
 def weitenlinie(d, w):
     global string_lfdnr
-    bogenlaenge_weitenlinie = 2.0
+    bogenlaenge_weitenlinie = user_bogenlaenge_langwurf
 
     if d == 1:      # Speer
         alpha = 28.96
@@ -73,7 +73,7 @@ def weitenlinie(d, w):
             xS, yS = float(xS), float(yS)
             xA, yA = koordinaten_import['4.1.0006']
             xA, yA = float(xA), float(yA)
-            bogenlaenge_weitenlinie = 1.0
+            bogenlaenge_weitenlinie = user_bogenlaenge_kugel
 
     halbeBogenlaenge = 0.5 * ((alpha * (w + r))/rho)
     anzahlPunktHalbeBogenlaenge = math.floor(halbeBogenlaenge / bogenlaenge_weitenlinie)
@@ -109,6 +109,19 @@ with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
     koordinaten_import = {rows[0]: (rows[2], rows[3]) for rows in coor}
 
 koordinaten_export = koordinaten_import
+
+user_bogenlaenge_langwurf = input('Bogenlänge der Weitenlinien für Langwürfe eingeben (Gleitkomma, z.B. "2.0" [m]): ')
+try:
+    user_bogenlaenge_langwurf = float(user_bogenlaenge_langwurf)
+except ValueError:
+    print('Gleitkomma du Idiot! Nichts anderes')
+
+user_bogenlaenge_kugel = input('Bogenlänge der Weitenlinien für Kugel eingeben (Gleitkomma, z.B. "1.0" [m]): ')
+try:
+    user_bogenlaenge_kugel = float(user_bogenlaenge_langwurf)
+except ValueError:
+    print('Gleitkomma du Idiot! Nichts anderes')
+
 
 for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
     if key[2] == '2' or key[2] == '3':
