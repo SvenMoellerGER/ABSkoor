@@ -2,7 +2,6 @@ import csv
 import math
 
 rho = 180/math.pi
-offset = 0.025
 
 
 def exzentrumSektor(xS, yS, k):     # Punkte der Sektorlinien werden um dem Offset nach außen versetzt
@@ -167,7 +166,6 @@ while i == 0:
     try:
         offset = float(offset)
         offset = offset / 100
-        print('Offset ' + str(offset))
         i = 1
     except ValueError:
         print('Gleitkomma benötigt!')
