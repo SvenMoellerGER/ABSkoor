@@ -154,7 +154,7 @@ def exzPktWeitenlinieXSektor(xS, yS, d, p):     # Erneute Verschiebung der Punkt
 
 
 # Import der Soll-Koordinaten (Kreis, Sektorlinien, Sektorachse)
-with open('AbsteckungWurf.pkt', newline='') as csvfile:
+with open('Wurf-ohneWeiten.pkt', newline='') as csvfile:
     coor = csv.reader(csvfile, delimiter='\t')
     koordinaten_import = {rows[0]: (rows[2], rows[3]) for rows in coor}
 
