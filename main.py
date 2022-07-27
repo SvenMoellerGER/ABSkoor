@@ -161,6 +161,17 @@ with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
 
 koordinaten_export = koordinaten_import
 
+i = 0
+while i == 0:
+    offset = input('Offset in [cm] eingeben: ')
+    try:
+        offset = float(offset)
+        offset = offset / 100
+        print('Offset ' + str(offset))
+        i = 1
+    except ValueError:
+        print('Gleitkomma benötigt!')
+
 user_bogenlaenge_langwurf = input('Bogenlänge der Weitenlinien für Langwürfe eingeben (Gleitkomma, z.B. "2.0" [m]): ')
 try:
     user_bogenlaenge_langwurf = float(user_bogenlaenge_langwurf)
