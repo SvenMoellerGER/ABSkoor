@@ -98,6 +98,12 @@ def weitenlinie(d, w):
         yN = yS + (w + r + offset) * math.sin(tSN)
         xN = xS + (w + r + offset) * math.cos(tSN)
 
+        # if: Punkt der Weitenlinie der auf Sektorlinie liegt mit Offset Sektorlinie berechnen
+        if lfdnr == 1:
+            xN, yN = exzPktWeitenlinieXSektor(xN, yN, d, 0)
+        elif anzahlPunkteWeitenlinie + 2:
+            xN, yN = exzPktWeitenlinieXSektor(xN, yN, d, 1)
+
         xN, yN = round(xN, 3), round(yN, 3)
 
         if lfdnr < 10:
@@ -110,6 +116,36 @@ def weitenlinie(d, w):
 
         nr += 1
         lfdnr += 1
+
+
+def exzPktWeitenlinieXSektor(xS, yS, d, p):
+
+    if d == 1 and p == 0:
+        xA, yA = koordinaten_import['1.1.0005']
+    elif d == 1 and p == 1:
+        xA, yA = koordinaten_import['1.1.0006']
+    elif d == 2 or d == 3 and p == 0:
+        xA, yA = koordinaten_import['2.1.0003']
+    elif d == 2 or d == 3 and p == 1:
+        xA, yA = koordinaten_import['2.1.0004']
+    elif d == 4 and p == 0:
+        xA, yA = koordinaten_import['4.1.0002']
+    else:   # d == 4 and p == 1:
+        xA, yA = koordinaten_import['4.1.0003']
+
+    xA, yA = float(xA), float(yA)
+    tSA = math.atan2((yA - yS), (xA - xS))
+
+    if p == 0:
+        betaN = math.radians(270)
+    else:
+        betaN = math.radians(90)
+
+    tSN = tSA - betaN
+    yN = yS + offset * math.sin(tSN)
+    xN = xS + offset * math.cos(tSN)
+
+    return xN, yN
 
 
 with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
