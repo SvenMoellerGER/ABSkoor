@@ -172,18 +172,24 @@ while i == 0:
     except ValueError:
         print('Gleitkomma benötigt!')
 
-user_bogenlaenge_langwurf = input('Bogenlänge der Weitenlinien für Langwürfe eingeben (Gleitkomma, z.B. "2.0" [m]): ')
-try:
-    user_bogenlaenge_langwurf = float(user_bogenlaenge_langwurf)
-except ValueError:
-    print('Gleitkomma du Idiot! Nichts anderes')
+i = 0
+while i == 0:
+    user_bogenlaenge_langwurf = input('Bogenlänge der Weitenlinien für Langwürfe eingeben (Gleitkomma, z.B. "2.0" ['
+                                      'm]): ')
+    try:
+        user_bogenlaenge_langwurf = float(user_bogenlaenge_langwurf)
+        i = 1
+    except ValueError:
+        print('Gleitkomma benötigt!')
 
-user_bogenlaenge_kugel = input('Bogenlänge der Weitenlinien für Kugel eingeben (Gleitkomma, z.B. "1.0" [m]): ')
-try:
-    user_bogenlaenge_kugel = float(user_bogenlaenge_kugel)
-except ValueError:
-    print('Gleitkomma du Idiot! Nichts anderes')
-
+i = 0
+while i == 0:
+    user_bogenlaenge_kugel = input('Bogenlänge der Weitenlinien für Kugel eingeben (Gleitkomma, z.B. "1.0" [m]): ')
+    try:
+        user_bogenlaenge_kugel = float(user_bogenlaenge_kugel)
+        i = 1
+    except ValueError:
+        print('Gleitkomma benötigt!')
 
 for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
     if key[2] == '2' or key[2] == '3':      # dritte [2] Stelle definiert in der Importdatei Punkte der Sektorlinien
