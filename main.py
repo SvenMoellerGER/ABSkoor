@@ -44,7 +44,6 @@ def exzentrumSektor(xS, yS, k):     # Punkte der Sektorlinien werden um dem Offs
 
 def weitenlinie(d, w):
     global string_lfdnr
-    bogenlaenge_weitenlinie = user_bogenlaenge_langwurf
 
     if d == 1:      # Speer
         alpha = 28.96
@@ -73,7 +72,11 @@ def weitenlinie(d, w):
             xS, yS = float(xS), float(yS)
             xA, yA = koordinaten_import['4.1.0006']
             xA, yA = float(xA), float(yA)
-            bogenlaenge_weitenlinie = user_bogenlaenge_kugel
+
+    if d == 4:
+        bogenlaenge_weitenlinie = user_bogenlaenge_kugel
+    else:
+        bogenlaenge_weitenlinie = user_bogenlaenge_langwurf
 
     halbeBogenlaenge = 0.5 * ((alpha * (w + r))/rho)
     anzahlPunktHalbeBogenlaenge = math.floor(halbeBogenlaenge / bogenlaenge_weitenlinie)
@@ -175,7 +178,7 @@ except ValueError:
 
 user_bogenlaenge_kugel = input('Bogenlänge der Weitenlinien für Kugel eingeben (Gleitkomma, z.B. "1.0" [m]): ')
 try:
-    user_bogenlaenge_kugel = float(user_bogenlaenge_langwurf)
+    user_bogenlaenge_kugel = float(user_bogenlaenge_kugel)
 except ValueError:
     print('Gleitkomma du Idiot! Nichts anderes')
 
