@@ -151,19 +151,6 @@ def exzPktWeitenlinieXSektor(xS, yS, d, p):
     return xN, yN
 
 
-def pythagoras(z1, z2, z3, z4):
-    global erg
-    if z1 > z2 and z3 > z4:
-        erg = math.sqrt((z1 - z2) ** 2 + (z3 - z4) ** 2)
-    if z1 > z2 and z3 < z4:
-        erg = math.sqrt((z1 - z2) ** 2 + (z4 - z3) ** 2)
-    if z1 < z2 and z3 > z4:
-        erg = math.sqrt((z2 - z1) ** 2 + (z3 - z4) ** 2)
-    if z1 < z2 and z3 < z4:
-        erg = math.sqrt((z2 - z1) ** 2 + (z4 - z3) ** 2)
-    return erg
-
-
 with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
     coor = csv.reader(csvfile, delimiter='\t')
     koordinaten_import = {rows[0]: (rows[2], rows[3]) for rows in coor}
