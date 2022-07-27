@@ -83,9 +83,26 @@ def weitenlinie(d, w):
 
     nr = -1 * anzahlPunktHalbeBogenlaenge
     lfdnr = 1
-    for m in range(2 * anzahlPunktHalbeBogenlaenge + 1):
-        betaN = nr * gamma
-        tSN = tSA + betaN
+    anzahlPunkteWeitenlinie = 2 * anzahlPunktHalbeBogenlaenge + 1
+
+    # TODO Punkt auf linker und rechter Sektorlinie bzgl Weitenlinie (mit Offset)
+    print('anzahlPunkteWeitenlinie + 3: ' + str(anzahlPunkteWeitenlinie + 3))
+
+    for m in range(anzahlPunkteWeitenlinie + 2):
+        if lfdnr == 1:
+            betaN = -math.radians(0.5 * alpha)
+            nr -= 1
+        elif lfdnr == (anzahlPunkteWeitenlinie + 2):
+            betaN = math.radians(0.5 * alpha)
+        else:
+            betaN = nr * gamma
+
+        print('lfdnr ' + str(lfdnr))
+        print('nr ' + str(nr))
+        print('betaN ' + str(betaN))
+        print('gamma ' + str(gamma))
+
+        tSN = tSA - betaN
         yN = yS + (w + r + offset) * math.sin(tSN)
         xN = xS + (w + r + offset) * math.cos(tSN)
 
