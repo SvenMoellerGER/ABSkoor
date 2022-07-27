@@ -95,17 +95,14 @@ def weitenlinie(d, w):
             betaN = nr * gamma
 
         tSN = tSA - betaN
-        print('w + r + offset: ' + str(w + r + offset))
         yN = yS + (w + r + offset) * math.sin(tSN)
         xN = xS + (w + r + offset) * math.cos(tSN)
 
         # if: Punkt der Weitenlinie der auf Sektorlinie liegt mit Offset Sektorlinie berechnen
         if lfdnr == 1:
             xN, yN = exzPktWeitenlinieXSektor(xN, yN, d, 0)
-            print('Punkt Weitenlinie Sektor links')
         elif lfdnr == anzahlPunkteWeitenlinie + 2:
             xN, yN = exzPktWeitenlinieXSektor(xN, yN, d, 1)
-            print('Punkt Weitenlinie Sektor rechts')
 
         xN, yN = round(xN, 3), round(yN, 3)
 
@@ -116,10 +113,6 @@ def weitenlinie(d, w):
 
         string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr
         koordinaten_export[string_pnr] = xN, yN
-
-        print('Strecke ' + str(round(pythagoras(xS, xN, yS, yN), 3)))
-        print('PNR: ' + string_pnr)
-        print('')
 
         nr += 1
         lfdnr += 1
@@ -198,7 +191,7 @@ for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
 i = 0
 while i == 0:
     j = 0
-    disziplin = int(input('Disziplin wählen: (1) Speer  (2) Diskus  (3) Hammer  (4) Kugel  (5) BEENDEN'))
+    disziplin = int(input('Disziplin wählen: (1) Speer  (2) Diskus  (3) Hammer  (4) Kugel  (5) BEENDEN '))
 
     if disziplin == 1:
         string_disziplin = 'Speer'
