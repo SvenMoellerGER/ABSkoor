@@ -95,14 +95,17 @@ def weitenlinie(d, w):
             betaN = nr * gamma
 
         tSN = tSA - betaN
+        print('w + r + offset: ' + str(w + r + offset))
         yN = yS + (w + r + offset) * math.sin(tSN)
         xN = xS + (w + r + offset) * math.cos(tSN)
 
         # if: Punkt der Weitenlinie der auf Sektorlinie liegt mit Offset Sektorlinie berechnen
         if lfdnr == 1:
             xN, yN = exzPktWeitenlinieXSektor(xN, yN, d, 0)
-        elif anzahlPunkteWeitenlinie + 2:
+            print('Punkt Weitenlinie Sektor links')
+        elif lfdnr == anzahlPunkteWeitenlinie + 2:
             xN, yN = exzPktWeitenlinieXSektor(xN, yN, d, 1)
+            print('Punkt Weitenlinie Sektor rechts')
 
         xN, yN = round(xN, 3), round(yN, 3)
 
@@ -113,6 +116,10 @@ def weitenlinie(d, w):
 
         string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr
         koordinaten_export[string_pnr] = xN, yN
+
+        print('Strecke ' + str(round(pythagoras(xS, xN, yS, yN), 3)))
+        print('PNR: ' + string_pnr)
+        print('')
 
         nr += 1
         lfdnr += 1
@@ -146,6 +153,19 @@ def exzPktWeitenlinieXSektor(xS, yS, d, p):
     xN = xS + offset * math.cos(tSN)
 
     return xN, yN
+
+
+def pythagoras(z1, z2, z3, z4):
+    global erg
+    if z1 > z2 and z3 > z4:
+        erg = math.sqrt((z1 - z2) ** 2 + (z3 - z4) ** 2)
+    if z1 > z2 and z3 < z4:
+        erg = math.sqrt((z1 - z2) ** 2 + (z4 - z3) ** 2)
+    if z1 < z2 and z3 > z4:
+        erg = math.sqrt((z2 - z1) ** 2 + (z3 - z4) ** 2)
+    if z1 < z2 and z3 < z4:
+        erg = math.sqrt((z2 - z1) ** 2 + (z4 - z3) ** 2)
+    return erg
 
 
 with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
