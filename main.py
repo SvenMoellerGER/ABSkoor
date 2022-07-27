@@ -213,9 +213,6 @@ while i == 0:
                     weitenlinie(disziplin, weite)
             except ValueError:
                 print('Float eingeben!')
-        # beenden = input('Berechnung Weitenlinien beenden? (1) Nein  (2) Ja')
-        # if beenden == 2:
-        #     j = 1
     elif disziplin == 5:
         i = 1
     else:
