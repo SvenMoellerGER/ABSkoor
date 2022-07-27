@@ -28,9 +28,9 @@ def exzentrumSektor(xS, yS, k):     # Punkte der Sektorlinien werden um dem Offs
 
     xA, yA = float(xA), float(yA)
     tSA = math.atan2((yA - yS), (xA - xS))      # Richtungswinkel Standpunkt (Pkt Sektorlinie) zu Anschlusspunkt
-    if RI_betaN == 1:       # Rechte Sektorlinie --> Punkt nach rechts verschieben
+    if RI_betaN == 1:       # Rechte Sektorlinie → Punkt nach rechts verschieben
         betaN = math.radians(270)
-    else:       # Linke Sektorlinie --> Punkt nach rechts verschieben
+    else:       # Linke Sektorlinie → Punkt nach rechts verschieben
         betaN = math.radians(90)
     tSN = tSA + betaN       # Richtungswinkel des Neupunktes (exzentrischer Punkt)
     yN = yS + offset * math.sin(tSN)        # Polares Anhängen y-Koordiante
