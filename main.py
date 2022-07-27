@@ -5,7 +5,7 @@ rho = 180/math.pi
 offset = 0.025
 
 
-def polAn(xS, yS, k):
+def exzentrumSektor(xS, yS, k):
     global yA, xA, RI_betaN
     k = k[0:3]
     if k == '1.2':
@@ -85,9 +85,6 @@ def weitenlinie(d, w):
     lfdnr = 1
     anzahlPunkteWeitenlinie = 2 * anzahlPunktHalbeBogenlaenge + 1
 
-    # TODO Punkt auf linker und rechter Sektorlinie bzgl Weitenlinie (mit Offset)
-    print('anzahlPunkteWeitenlinie + 3: ' + str(anzahlPunkteWeitenlinie + 3))
-
     for m in range(anzahlPunkteWeitenlinie + 2):
         if lfdnr == 1:
             betaN = -math.radians(0.5 * alpha)
@@ -96,11 +93,6 @@ def weitenlinie(d, w):
             betaN = math.radians(0.5 * alpha)
         else:
             betaN = nr * gamma
-
-        print('lfdnr ' + str(lfdnr))
-        print('nr ' + str(nr))
-        print('betaN ' + str(betaN))
-        print('gamma ' + str(gamma))
 
         tSN = tSA - betaN
         yN = yS + (w + r + offset) * math.sin(tSN)
@@ -114,7 +106,6 @@ def weitenlinie(d, w):
             string_lfdnr = str(lfdnr)
 
         string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr
-        # 1.4.755001
         koordinaten_export[string_pnr] = xN, yN
 
         nr += 1
@@ -145,7 +136,7 @@ for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
         x, y = koordinaten_export[key]
         x = float(x)
         y = float(y)
-        xEx, yEx = polAn(x, y, key)
+        xEx, yEx = exzentrumSektor(x, y, key)
         koordinaten_export[key] = [xEx, yEx]
 
 i = 0
