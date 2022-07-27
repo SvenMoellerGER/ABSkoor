@@ -165,7 +165,7 @@ while i == 0:
     offset = input('Offset in [cm] eingeben: ')
     try:
         offset = float(offset)
-        offset = offset / 100
+        offset = offset / 100       # cm → m
         i = 1
     except ValueError:
         print('Gleitkomma benötigt!')
