@@ -33,8 +33,8 @@ def exzentrumSektor(xS, yS, k):     # Punkte der Sektorlinien werden um dem Offs
     else:       # Linke Sektorlinie → Punkt nach rechts verschieben
         betaN = math.radians(90)
     tSN = tSA + betaN       # Richtungswinkel des Neupunktes (exzentrischer Punkt)
-    yN = yS + offset * math.sin(tSN)        # Polares Anhängen y-Koordiante
-    xN = xS + offset * math.cos(tSN)        # Polares Anhängen x-Koordiante
+    yN = yS + offset * math.sin(tSN)        # Polares Anhängen y-Koordinate
+    xN = xS + offset * math.cos(tSN)        # Polares Anhängen x-Koordinate
 
     xN, yN = round(xN, 3), round(yN, 3)     # Runden auf 3 NKS
 
