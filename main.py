@@ -5,10 +5,10 @@ rho = 180/math.pi
 offset = 0.025
 
 
-def exzentrumSektor(xS, yS, k):
+def exzentrumSektor(xS, yS, k):     # Punkte der Sektorlinien werden um dem Offset nach außen versetzt
     global yA, xA, RI_betaN
     k = k[0:3]
-    if k == '1.2':
+    if k == '1.2':      # Bestimmung Anschlusspunkt des folgenden polaren Anhängens je nach Disziplin und Sektorlinie
         xA, yA = koordinaten_import['1.1.0005']
         RI_betaN = 0
     elif k == '1.3':
@@ -28,8 +28,8 @@ def exzentrumSektor(xS, yS, k):
         RI_betaN = 1
 
     xA, yA = float(xA), float(yA)
-    tSA = math.atan2((yA - yS), (xA - xS))
-    if RI_betaN == 1:
+    tSA = math.atan2((yA - yS), (xA - xS))      # Richtungswinkel Standpunkt (Pkt Sektorlinie) zu Anschlusspunkt
+    if RI_betaN == 1:       # wenn
         betaN = math.radians(270)
     else:
         betaN = math.radians(90)
