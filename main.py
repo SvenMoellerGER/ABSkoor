@@ -29,22 +29,24 @@ def exzentrumSektor(xS, yS, k):     # Punkte der Sektorlinien werden um dem Offs
 
     xA, yA = float(xA), float(yA)
     tSA = math.atan2((yA - yS), (xA - xS))      # Richtungswinkel Standpunkt (Pkt Sektorlinie) zu Anschlusspunkt
-    if RI_betaN == 1:       # wenn
+    if RI_betaN == 1:       # Rechte Sektorlinie --> Punkt nach rechts verschieben
         betaN = math.radians(270)
-    else:
+    else:       # Linke Sektorlinie --> Punkt nach rechts verschieben
         betaN = math.radians(90)
-    tSN = tSA + betaN
-    yN = yS + offset * math.sin(tSN)
-    xN = xS + offset * math.cos(tSN)
+    tSN = tSA + betaN       # Richtungswinkel des Neupunktes (exzentrischer Punkt)
+    yN = yS + offset * math.sin(tSN)        # Polares Anhängen y-Koordiante
+    xN = xS + offset * math.cos(tSN)        # Polares Anhängen x-Koordiante
 
-    xN, yN = round(xN, 3), round(yN, 3)
+    xN, yN = round(xN, 3), round(yN, 3)     # Runden auf 3 NKS
 
     return xN, yN
 
 
-def weitenlinie(d, w):
+def weitenlinie(d, w):      # Berechnung der Weitenlinien
     global string_lfdnr
 
+    # Definition des Öffnungswinkels (abhängig von Disziplin), Radius sowie Koordinaten von Mittelpunkt des
+    # Kreises (Standpunkt S) und eines Punktes in der Sektorachse (Anschlusspunkt A) für polares Anhängen
     if d == 1:      # Speer
         alpha = 28.96
         r = 8.0
@@ -73,31 +75,31 @@ def weitenlinie(d, w):
             xA, yA = koordinaten_import['4.1.0006']
             xA, yA = float(xA), float(yA)
 
-    if d == 4:
+    if d == 4:      # Punktabstand auf dem Bogen der Weitenlinie wird durch User bestimmt
         bogenlaenge_weitenlinie = user_bogenlaenge_kugel
     else:
         bogenlaenge_weitenlinie = user_bogenlaenge_langwurf
 
-    halbeBogenlaenge = 0.5 * ((alpha * (w + r))/rho)
-    anzahlPunktHalbeBogenlaenge = math.floor(halbeBogenlaenge / bogenlaenge_weitenlinie)
-    gamma = bogenlaenge_weitenlinie / (w + r)
+    halbeBogenlaenge = 0.5 * ((alpha * (w + r))/rho)        # Berechnung der halben Bogenlänge der Weitenlinie
+    anzahlPunktHalbeBogenlaenge = math.floor(halbeBogenlaenge / bogenlaenge_weitenlinie)    # Pkte auf WL // Bogenlänge
+    gamma = bogenlaenge_weitenlinie / (w + r)       # Winkel zw. Sektorachse und durch Bogenlänge definerten Pkt auf WL
 
-    tSA = math.atan2((yA - yS), (xA - xS))
+    tSA = math.atan2((yA - yS), (xA - xS))      # Richtungswinkel Standpunkt - Anschlusspunkt
 
-    nr = -1 * anzahlPunktHalbeBogenlaenge
+    nr = -1 * anzahlPunktHalbeBogenlaenge       # Nr. des Pkts auf WL um links und rechts der Achse berechnen zu können
     lfdnr = 1
-    anzahlPunkteWeitenlinie = 2 * anzahlPunktHalbeBogenlaenge + 1
+    anzahlPunkteWeitenlinie = 2 * anzahlPunktHalbeBogenlaenge + 1       # Anzahl Punkte auf WL inkl. Punkt auf Achse
 
-    for m in range(anzahlPunkteWeitenlinie + 2):
-        if lfdnr == 1:
+    for m in range(anzahlPunkteWeitenlinie + 2):        # Berechnung der Koordinaten der WL-Punkte
+        if lfdnr == 1:      # erster Punkt der WL soll auf linker Sektorlinie liegen
             betaN = -math.radians(0.5 * alpha)
             nr -= 1
-        elif lfdnr == (anzahlPunkteWeitenlinie + 2):
+        elif lfdnr == (anzahlPunkteWeitenlinie + 2):        # letzter Punkt der WL soll auf rechter Sektorlinie liegen
             betaN = math.radians(0.5 * alpha)
-        else:
+        else:       # Winkel in Abhängigkeit der Sektorachse (Nullrichtung), wenn negativ dann links der Achse
             betaN = nr * gamma
 
-        tSN = tSA - betaN
+        tSN = tSA - betaN       # Richtungswinkel für Neupunkt (Punkt auf WL)
         yN = yS + (w + r + offset) * math.sin(tSN)
         xN = xS + (w + r + offset) * math.cos(tSN)
 
@@ -109,20 +111,21 @@ def weitenlinie(d, w):
 
         xN, yN = round(xN, 3), round(yN, 3)
 
-        if lfdnr < 10:
+        if lfdnr < 10:      # bei einstelliger Lfdnr. wird '0' ergänzt, um immer eine gleiche Stellenanzahl zu haben
             string_lfdnr = '0' + str(lfdnr)
         else:
             string_lfdnr = str(lfdnr)
 
-        string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr
-        koordinaten_export[string_pnr] = xN, yN
+        string_pnr = str(d) + '.4.' + str(int(weite*100)) + string_lfdnr        # Zusammenbau der Punktnummer
+        koordinaten_export[string_pnr] = xN, yN     # Abspeichern der Punktnummer und der Koordinaten
 
         nr += 1
         lfdnr += 1
 
 
-def exzPktWeitenlinieXSektor(xS, yS, d, p):
+def exzPktWeitenlinieXSektor(xS, yS, d, p):     # Erneute Verschiebung der Punkte auf WL die auch auf Sektorlinie liegen
 
+    # Definition der Anschlusspunkte je nach Disziplin und Sektorlinie
     if d == 1 and p == 0:
         xA, yA = koordinaten_import['1.1.0005']
     elif d == 1 and p == 1:
@@ -151,6 +154,7 @@ def exzPktWeitenlinieXSektor(xS, yS, d, p):
     return xN, yN
 
 
+# Import der Soll-Koordinaten (Kreis, Sektorlinien, Sektorachse)
 with open('Wurf-mm_delim-tab_ohneWeiten.pkt', newline='') as csvfile:
     coor = csv.reader(csvfile, delimiter='\t')
     koordinaten_import = {rows[0]: (rows[2], rows[3]) for rows in coor}
@@ -171,10 +175,9 @@ except ValueError:
 
 
 for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
-    if key[2] == '2' or key[2] == '3':
+    if key[2] == '2' or key[2] == '3':      # dritte [2] Stelle definiert in der Importdatei Punkte der Sektorlinien
         x, y = koordinaten_export[key]
-        x = float(x)
-        y = float(y)
+        x, y = float(x), float(y)
         xEx, yEx = exzentrumSektor(x, y, key)
         koordinaten_export[key] = [xEx, yEx]
 
@@ -208,6 +211,7 @@ while i == 0:
     else:
         print('Int eingeben!')
 
+# Export der neuen Koordinaten
 fieldnames = ['PNR', 'Code', 'X', 'Y']
 with open('Wurf-mm_exzentrum.pkt', 'w', newline='') as f:
     writer = csv.writer(f, delimiter='\t')
