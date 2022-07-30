@@ -229,7 +229,7 @@ while i == 0:
 # Export der neuen Koordinaten
 fieldnames = ['PNR', 'Code', 'X', 'Y']
 with open('AbsWurf-exzentrum.pkt', 'w', newline='') as f:
-    writer = csv.writer(f, delimiter='\t')
+    writer = csv.writer(f, delimiter=' ')
     for key in koordinaten_export:
         a, b = koordinaten_export[key]
         a, b = float(a), float(b)
