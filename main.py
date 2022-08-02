@@ -160,32 +160,32 @@ with open('Wurf-ohneWeiten.pkt', newline='') as csvfile:
 
 koordinaten_export = koordinaten_import
 
-i = 0
-while i == 0:
+repeating = true
+while repeating:
     offset = input('Offset in [cm] eingeben: ')
     try:
         offset = float(offset)
         offset = offset / 100       # cm → m
-        i = 1
+        repeating = false
     except ValueError:
         print('Gleitkomma benötigt!')
 
-i = 0
-while i == 0:
+repeating = true
+while repeating:
     user_bogenlaenge_langwurf = input('Bogenlänge der Weitenlinien für Langwürfe eingeben (Gleitkomma, z.B. "2.0" ['
                                       'm]): ')
     try:
         user_bogenlaenge_langwurf = float(user_bogenlaenge_langwurf)
-        i = 1
+        repeating = false
     except ValueError:
         print('Gleitkomma benötigt!')
 
-i = 0
-while i == 0:
+repeating = true
+while repeating:
     user_bogenlaenge_kugel = input('Bogenlänge der Weitenlinien für Kugel eingeben (Gleitkomma, z.B. "1.0" [m]): ')
     try:
         user_bogenlaenge_kugel = float(user_bogenlaenge_kugel)
-        i = 1
+        repeating = false
     except ValueError:
         print('Gleitkomma benötigt!')
 
@@ -196,9 +196,8 @@ for key in koordinaten_export:      # Berechnung des exzentrischen Punktes
         xEx, yEx = exzentrumSektor(x, y, key)
         koordinaten_export[key] = [xEx, yEx]
 
-i = 0
-while i == 0:
-    j = 0
+repeating = true
+while repeating:
     disziplin = int(input('Disziplin wählen: (1) Speer  (2) Diskus  (3) Hammer  (4) Kugel  (5) BEENDEN '))
 
     if disziplin == 1:
@@ -211,18 +210,19 @@ while i == 0:
         string_disziplin = 'Kugel'
 
     if disziplin == 1 or disziplin == 2 or disziplin == 3 or disziplin == 4:
-        while j == 0:
+        inner_repeating = true
+        while inner_repeating:
             weite = input(f'Weitenlinie für {string_disziplin} eingeben (0 für Beenden): ')
             try:
                 weite = float(weite)
                 if weite == 0:
-                    j = 1
+                    inner_repeating = false
                 else:
                     weitenlinie(disziplin, weite)
             except ValueError:
                 print('Float eingeben!')
     elif disziplin == 5:
-        i = 1
+        repeating = false
     else:
         print('Int eingeben!')
 
